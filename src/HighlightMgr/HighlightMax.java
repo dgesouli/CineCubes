@@ -16,7 +16,7 @@ public class HighlightMax extends Highlight {
 	public void execute(String[][] table){
 		if(table==null) return;
 		int num_of_msrs_in_table=table.length-2;
-    	int maxLenght=(int) Math.floor(num_of_msrs_in_table*0.25);
+    	int maxLenght=(int) Math.floor((num_of_msrs_in_table-countNullValues(table))*0.25);
     	 	
         String[] tmp_Values=new String[maxLenght];
     	int[] tmp_indexValues=new int[maxLenght];
@@ -29,6 +29,7 @@ public class HighlightMax extends Highlight {
 				if(table[j][2]==null || table[j][2].equals("-") || table[j][2].length()==0) continue;
 				if(returnConditionForMaxMin(tmp_indexValues[k],tmp_Values[k],table[j][2],1)  && isTableMinValue(tmp_Values,tmp_Values[k])){
 					tmp_Values[k]=df.format(Float.parseFloat(table[j][2]));
+					tmp_Values[k]=tmp_Values[k].replace(",", ".");
 					tmp_indexValues[k]=j;
 					break;
 				}
@@ -55,5 +56,13 @@ public class HighlightMax extends Highlight {
 	boolean returnConditionForMaxMin(int index,String tmp_value,String table_value,int mode/* 0 min,1 max */){
 		if(mode==0) return (index==0 || Float.parseFloat(tmp_value)>Float.parseFloat(table_value));
 		return (index==0 || Float.parseFloat(tmp_value)<Float.parseFloat(table_value));
+	}
+	
+	int countNullValues(String[][] table){
+		int count=0; 
+		for(int j=2 ; j<table.length;j++ ){
+			 if(table[j][2]==null || table[j][2].equals("-") || table[j][2].length()==0) count++;
+		}
+		return count;
 	}
 }

@@ -54,6 +54,7 @@ public class SqlQuery extends ExtractionMethod {
     	WhereClause.addAll(Conditions);
     	GroupByClause.addAll(GroupAttr);
     }
+    
     public String getSelectClause(){
     	String ret_value="";
     	

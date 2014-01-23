@@ -35,7 +35,7 @@
   </class>  
   <class id="5" language="java" name="StoryMgr.PptxSlide" project="Master" file="/Master/src/StoryMgr/PptxSlide.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="554" y="379"/>    
+    <position height="-1" width="-1" x="531" y="381"/>    
     <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
       accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -114,82 +114,82 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="14">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="15" name="story"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="18" name="Episodes"/>      
-      <multiplicity id="19" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="21" name="visual"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="23">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="24">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="25" name="highlight"/>      
-      <multiplicity id="26" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="27">    
+  <generalization id="14">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <association id="28">    
+  <association id="15">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="29" name="tsk"/>      
-      <multiplicity id="30" minimum="0" maximum="1"/>    
+      <attribute id="16" name="tsk"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="31">    
+  <association id="18">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="19" name="visual"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="21">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
-  <association id="32">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="33" name="FinRes"/>      
-      <multiplicity id="34" minimum="0" maximum="1"/>    
+  <association id="22">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="23" name="story"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="35">    
+  <association id="25">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="36" name="audio"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
+      <attribute id="26" name="audio"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="38">    
+  <association id="28">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="39" name="Acts"/>      
-      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
+      <attribute id="29" name="FinRes"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="32" name="Acts"/>      
+      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="34">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="35" name="highlight"/>      
+      <multiplicity id="36" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="38" name="Episodes"/>      
+      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="40">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <classifier-display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
     accessors="true" visibility="true">    
     <attributes public="false" package="false" protected="false" private="false"/>    

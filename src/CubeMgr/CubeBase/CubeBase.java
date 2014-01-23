@@ -34,7 +34,7 @@ public class CubeBase {
         name=filename;
         
         DB.setDBName(name);
-       // DB.setUsername("okeanos20130623");DB.setPassword("HcR6M3qbh7Gxjszw");
+        //DB.setUsername("okeanos20130623");DB.setPassword("HcR6M3qbh7Gxjszw");
         DB.setUsername("root");DB.setPassword("");
         DB.registerDatabase();
         DB.GenerateTableList();

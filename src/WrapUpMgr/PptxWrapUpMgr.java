@@ -103,7 +103,8 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 					
 					slide.timeCreationPutInPPTX=System.nanoTime();
 					
-					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
+					if(slide.Title!=null && slide.Title.contains("Act")) 
+						XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
 					else if(slide.Notes.length()==0) {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
 						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
@@ -144,8 +145,11 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
 					
 					long strTime=System.nanoTime();
+					boolean audio_file_status=slide.getAudio().getFileName().equals("audio/null");
 					
-					if(slide.Notes.length()==0) AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.Notes);
+					if(slide.Notes.length()==0 || audio_file_status || slide.getAudio().getFileName()==null) {
+						AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.Notes);
+					}
 					else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.Notes);
 					
 					slide.timeCreationPutInPPTX+=System.nanoTime()-strTime;
@@ -248,13 +252,14 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         
         
         if(table!=null) {
-        	slide=slideShowPPTX.createSlide(titleLayout);
+        	if(Title!=null) slide=slideShowPPTX.createSlide(titleLayout);
+        	else slide=slideShowPPTX.createSlide();
         	slide.setFollowMasterGraphics(true);
         		           
 	        setRelationshipForNotes(slide,slideid);
 	        
         	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,colorTable,titleColumn,titleRow,tabular);
-        	this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
+        	if(Title!=null)this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
         }
         else {
         	slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE)); 
@@ -322,7 +327,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
               if(j==tabular.boldColumn) r.setBold(true);
               if(i==tabular.boldRow) r.setBold(true);
               try{
-            	  r.setFontColor(colorTable[i][j]);
+            	 if(colorTable!=null) r.setFontColor(colorTable[i][j]);
             	  r.setText(table[i][j]);
             	  if(table[i][j].equals("")) cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
                   
@@ -365,7 +370,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
        PackagePart packagePart = slide.getPackagePart();
        XmlObject xmlObject = slide.getXmlObject();
        try {
-    	   if(AudioFilename!=null){
+    	   if(AudioFilename!=null && AudioFilename.equals("audio/null")==false){
 	            URI uri = null;
 	            URI uri2=null;
 	            try {
@@ -409,8 +414,22 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	           }
     	   }
     	   else{
+    		   if(slideid-2==0){
+    			   try {
+	            		byte[] pictureData=new byte[getClass().getClassLoader().getResourceAsStream("resources/cube_dali.png").available()];
+	            		getClass().getClassLoader().getResourceAsStream("resources/cube_dali.jpg").read(pictureData);
+	            		int idx = slideShowPPTX.addPicture(pictureData, XSLFPictureData.PICTURE_TYPE_JPEG);
+	                    XSLFPictureShape pic = slide.createPicture(idx);
+	                    pic.setAnchor(new Rectangle2D.Double(slideShowPPTX.getPageSize().getWidth()-300, 0,300,300));
+	                    xmlObject = slide.getXmlObject();
+	        		} catch (IOException e) {
+	        			System.err.print("In add picture:");
+	        			e.printStackTrace();
+	        		}     		   
+    		   }
     		   String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld");
-	           SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+"</p:sld>").replace("<p:sld ", "<p:sld show=\""+String.valueOf(hide_slide)+"\" ");;
+    		   test=test.replace("<p:cSld>","<p:cSld>"+setBackroundToSlide());
+    		   SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+"</p:sld>").replace("<p:sld ", "<p:sld show=\""+String.valueOf(hide_slide)+"\" ");;
     	   }
             
             
@@ -565,12 +584,12 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      private String AutoSlideShow(){
          String ret_value="<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\">"
 		+"<mc:Choice xmlns:p14=\"http://schemas.microsoft.com/office/powerpoint/2010/main\" Requires=\"p14\">"
-			+"<p:transition p14:dur=\"100\" advClick=\"0\" advTm=\"10000\">"
+			+"<p:transition p14:dur=\"3000\" advTm=\"1200000\">"
 				+"<p:cut/>"
 			+"</p:transition>"
 		+"</mc:Choice>"
 		+"<mc:Fallback xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"\">"
-			+"<p:transition advClick=\"0\" advTm=\"10000\">"
+			+"<p:transition advTm=\"1200000\">"
 				+"<p:cut/>"
 			+"</p:transition>"
 		+"</mc:Fallback>"
@@ -658,11 +677,13 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             /*End of Write the Notes*/
             
             /* Write to Slide the audio */
-            FileOutputStream slide=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
             try {
-            	slide.write(SlideXml[slideId-2].getBytes());
+            	if(SlideXml[slideId-2]!=null && SlideXml[slideId-2].length()>0){
+            		FileOutputStream slide=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
+            		slide.write(SlideXml[slideId-2].getBytes());
+            		slide.close();
+            	}
                 this.AppendContentType(slideId);
-                slide.close();
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }        

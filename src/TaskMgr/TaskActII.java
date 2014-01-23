@@ -42,7 +42,7 @@ public class TaskActII extends Task {
 		SubTask origSubtsk=currentAct.getTask().getSubTask(1);
 		CubeQuery origCubeQuery=currentAct.getTask().cubeQuery.get(1);
 		for(int j=0;j<currentAct.getTask().getNumSubTasks();j++){
-			if(j==1) continue;
+			//if(j==1) continue;
 			SubTask subtsk=currentAct.getTask().getSubTask(j);
     		SqlQuery currentSqlQuery=((SqlQuery)subtsk.getExtractionMethod());
     		CubeQuery currentCubeQuery=currentAct.getTask().cubeQuery.get(j);
@@ -366,6 +366,9 @@ public class TaskActII extends Task {
 			newQuery.SigmaExpressions.get(index_sigma_change_bygamma)[0]=newQuery.GammaExpressions.get(1)[0]+"."+newQuery.GammaExpressions.get(1)[1];
 			newQuery.SigmaExpressions.get(index_sigma_change_bygamma)[2]="'"+valuesToChange[1]+"'";
 		}
+		else if(index_sigma_change_bygamma==-1){
+			newQuery.addSigmaExpression(newQuery.GammaExpressions.get(1)[0]+"."+newQuery.GammaExpressions.get(1)[1],"=","'"+valuesToChange[1]+"'");
+		}
 		/*if(index_sigma_todrillIn>-1){
 			newQuery.SigmaExpressions.get(index_sigma_todrillIn)[0]=newQuery.GammaExpressions.get(0)[0]+"."+newQuery.GammaExpressions.get(0)[1];
 			newQuery.SigmaExpressions.get(index_sigma_todrillIn)[1]=" IN ";
@@ -417,6 +420,9 @@ public class TaskActII extends Task {
 		if(index_sigma_change_bygamma>-1){
 			newQuery.SigmaExpressions.get(index_sigma_change_bygamma)[0]=newQuery.GammaExpressions.get(0)[0]+"."+newQuery.GammaExpressions.get(0)[1];
 			newQuery.SigmaExpressions.get(index_sigma_change_bygamma)[2]="'"+valuesToChange[1]+"'";
+		}
+		else if(index_sigma_change_bygamma==-1){
+			newQuery.addSigmaExpression(newQuery.GammaExpressions.get(0)[0]+"."+newQuery.GammaExpressions.get(0)[1],"=","'"+valuesToChange[1]+"'");
 		}
 		/*if(index_sigma_todrillIn>-1){
 			newQuery.SigmaExpressions.get(index_sigma_todrillIn)[0]=newQuery.GammaExpressions.get(1)[0]+"."+newQuery.GammaExpressions.get(1)[1];
@@ -518,6 +524,7 @@ public class TaskActII extends Task {
         newSqlQuery.produceExtractionMethod(cubequery);
         this.getLastSubTask().timeProduceOfExtractionMethod=System.nanoTime()-strTime;
         cubequery.sqlQuery=newSqlQuery;
+        newSqlQuery.printQuery();
         this.getLastSubTask().setExtractionMethod(newSqlQuery);
         this.getLastSubTask().addDifferenceFromOrigin(difference);
     }

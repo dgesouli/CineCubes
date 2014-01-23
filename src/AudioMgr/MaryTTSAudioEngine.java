@@ -47,7 +47,7 @@ public class MaryTTSAudioEngine extends AudioEngine  {
 	public void CreateAudio(String textTobeSound, String FileNameOfSound) {
 		try
         {
-			
+			if(FileNameOfSound==null || FileNameOfSound.equals("audio/null")) return;
 			File output=new File(FileNameOfSound+".wav");
 	        MTTS.setOutputType("AUDIO");
 	        MTTS.setOutputTypeParams("WAVE");
@@ -55,7 +55,7 @@ public class MaryTTSAudioEngine extends AudioEngine  {
 	       // System.out.println(HMMF0ScaleEffect.chEffectParamStart+"f0Scale"+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
 	       	//MTTS.setAudioEffects(HMMF0ScaleEffect.chEffectParamStart+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
 	        
-	        AudioInputStream audio = MTTS.generateAudio(FileNameOfSound);
+	        AudioInputStream audio = MTTS.generateAudio(textTobeSound);
 	        AudioSystem.write(audio, AudioFileFormat.Type.WAVE,output );
         }
         catch(Exception e)
@@ -64,17 +64,21 @@ public class MaryTTSAudioEngine extends AudioEngine  {
         }
 	}
 
+	/*public String randomIdentifier(){
+		return null;
+	}*/
+	
 	public String randomIdentifier() {
-	        StringBuilder builder = new StringBuilder();
-	        while(builder.toString().length() == 0) {
-	            int length = rand.nextInt(5)+5;
-	            for(int i = 0; i < length; i++)
-	                builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
-	            if((new File("audio/"+builder.toString()+".wav")).exists()) 
-	                builder = new StringBuilder();
-	        }
-	        return builder.toString();
+	    StringBuilder builder = new StringBuilder();
+	    while(builder.toString().length() == 0) {
+	        int length = rand.nextInt(5)+5;
+	        for(int i = 0; i < length; i++)
+	            builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
+	        if((new File("audio/"+builder.toString()+".wav")).exists()) 
+	            builder = new StringBuilder();
 	    }
+	    return builder.toString();
+    }
 	
 
 }

@@ -64,13 +64,13 @@ public class Tabular extends Visual {
             j=1+col;
             for(String y:ColPivot){
                 for (int r=0;r<QueryResult.length;r++){
-                        if((QueryResult[r][0].equals(x) && QueryResult[r][1].equals(y)) || (QueryResult[r][0].equals(y) && QueryResult[r][1].equals(x))){
-                            this.PivotTable[i][j]=QueryResult[r][2];
-                            if(tryParseFloat(this.PivotTable[i][j])) this.PivotTable[i][j]=df.format(Float.parseFloat(this.PivotTable[i][j]));
+	                	if(this.PivotTable[i][j]==null) {
+	                    	this.PivotTable[i][j]="-";
+	                    }
+	                	else if((QueryResult[r][0].equals(x) && QueryResult[r][1].equals(y)) || (QueryResult[r][0].equals(y) && QueryResult[r][1].equals(x))){
+                            this.PivotTable[i][j]=QueryResult[r][2].replace(",", ".");
+                            if(tryParseFloat(this.PivotTable[i][j])) this.PivotTable[i][j]=df.format(Float.parseFloat(this.PivotTable[i][j])).replace(",", ".");
                             if(col==1) this.PivotTable[i][j]+=" ("+QueryResult[r][3]+")";
-                        }
-                        if(this.PivotTable[i][j]==null) {
-                        	this.PivotTable[i][j]="-";
                         }
                 }
                 j++;

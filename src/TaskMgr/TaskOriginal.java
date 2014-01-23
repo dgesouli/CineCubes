@@ -1,7 +1,5 @@
 package TaskMgr;
 
-import java.util.ArrayList;
-
 import CubeMgr.CubeBase.CubeBase;
 import CubeMgr.CubeBase.CubeQuery;
 import CubeMgr.StarSchema.SqlQuery;
@@ -83,9 +81,8 @@ public class TaskOriginal extends Task {
     	hldomrow.semanticValue=hlmax.semanticValue;
     	hldomrow.helpValues2=hlmin.semanticValue;
     	hldomrow.execute(tbl.getPivotTable());
-    	//hltbl.createMiddleHightlight(subtsk.getExtractionMethod().Res.getResultArray());
     	newSlide.timeComputeHighlights=System.nanoTime()-newSlide.timeComputeHighlights;
-    	//newSlide.highlight=hltbl;
+
     	
     	/*====== Compute Color Table =======*/
     	newSlide.timeCreationColorTable=System.nanoTime();

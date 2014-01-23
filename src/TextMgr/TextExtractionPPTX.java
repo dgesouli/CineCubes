@@ -170,6 +170,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	int min_index=1;
     	//int middle_index=2;
     	String txt="";
+    	if (htable.valuePerColor[max_index]==0 || htable.valuePerColor[min_index]==0) return "";
     	if(htable.DominateMax!=null){
 	    	for(Integer index :htable.DominateMax ){
 	    			txt+="Column "+PivotTable[0][index]+" has "+htable.DominationColor[index][max_index]+" of the "+htable.valuePerColor[max_index]+" highest values.\n";
@@ -188,6 +189,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	int min_index=1;
     	//int middle_index=2;
     	String txt="";
+    	if (htable.valuePerColor[max_index]==0 || htable.valuePerColor[min_index]==0) return "";
     	for(Integer index :htable.DominateMax ){
     			txt+="Row "+PivotTable[index][0]+" has "+htable.DominationColor[index][max_index]+" of the "+htable.valuePerColor[max_index]+" highest values.\n";
     	}

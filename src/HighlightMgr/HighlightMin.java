@@ -28,6 +28,7 @@ public class HighlightMin extends Highlight {
     		for(int k=0;k<minLenght;k++){
     			if(returnConditionForMaxMin(tmp_indexValues[k],tmp_minValues[k],table[j][2],0) && isTableMaxValue(tmp_minValues,tmp_minValues[k])){
     				tmp_minValues[k]=df.format(Float.parseFloat(table[j][2]));
+    				tmp_minValues[k]=tmp_minValues[k].replace(",", ".");
     				tmp_indexValues[k]=j;
     				break;
     			}
